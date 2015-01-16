@@ -31,19 +31,17 @@ App::uses('Model', 'Model');
  */
 class Instagram extends Model {
 
-    var     $name   = 'Instagram';
-    private $API    = array();
-
-    public function instaAPI() {
+    var $name = 'Instagram';
+    private $API = array();
+    private $client_id = '657efa9632744a88bf1d8791b02907bf';
+    public function InsPhoto() {
         App::uses('HttpSocket', 'Network/Http');
         App::uses('CakeSession', 'Model/Datasource');
         $HttpSocket = new HttpSocket();
-        $API['client_id'] = '657efa9632744a88bf1d8791b02907bf';
         // $API['link'] = "https://instagram.com/oauth/authorize/?client_id={$API['client_id']}&redirect_uri=http://localhost&response_type=token";
-        // $API['get'] = "https://api.instagram.com/v1/users/search?q={$name}&client_id={$API['client_id']}";
         // $API['chicken'] = "https://api.instagram.com/v1/users/430556958/media/recent?client_id={$API['client_id']}";
-        $API['chicken'] = "https://api.instagram.com/v1/users/2279522/media/recent?client_id=657efa9632744a88bf1d8791b02907bf&count=90";
-        if (CakeSession::read('API.end') === true){
+        $API['chicken'] = "https://api.instagram.com/v1/users/2279522/media/recent?client_id={$client_id}&count=90";
+        if (CakeSession::read('API.end') === true) {
             CakeSession::delete('API.end');
             return 0;
         }
@@ -76,4 +74,11 @@ class Instagram extends Model {
         return $images_result;
     }
 
+    public function InsSearch(string $name = NULL) {
+        App::uses('HttpSocket', 'Network/Http');
+        App::uses('CakeSession', 'Model/Datasource');
+        $HttpSocket = new HttpSocket();
+        $API['search'] = "https://api.instagram.com/v1/users/search?q={$name}&client_id={$client_id}";
+        $rs = $HttpSocket->get($API['search']);
+    }
 }
