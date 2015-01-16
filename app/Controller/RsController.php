@@ -41,12 +41,10 @@ class RsController extends Controller {
     public function get() {
         $this->autoRender = false;
         $this->layout = 'ajax';
-        $insData = $this->Instagram->instaAPI();
+        $insData = $this->Instagram->InsPhoto();
         return $insData;
-//        if ($this->request->is('ajax')) {
-//            return $this->request->data['email'];
-//            Debugger::dump($this->request->data['email']);
-//        }
+        if ($this->request->is('ajax')) {
+            $this->Instagram->InsSearch($this->request->data['inid']);
+        }
     }
-
 }
