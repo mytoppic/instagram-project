@@ -1,7 +1,7 @@
 <?php
 
 echo $this->Form->create('Rs', array('action' => 'login'));
-//echo $this->Form->input('Instagram', array('type' => 'text','id' => 'email'));
+echo $this->Form->input('name', array('type' => 'text','id' => 'email'));
 echo $this->Form->input('agent', array('type' => 'hidden','id' => 'agent','value' => env('HTTP_USER_AGENT')));
 echo $this->Form->end(array('class' => 'try'));
 Debugger::dump(CakeSession::read('API.next_max_id'));
